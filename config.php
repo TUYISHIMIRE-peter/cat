@@ -1,36 +1,29 @@
 <?php
 
-define('APP_ID','428383645405725');
-define('APP_SECRET','ce53d04857e9be189b49a0e772fdd3b8');
-define('APP_VERSION','V2.5');
-define('FB_ BASE_URL','http://localhost/cat/facebook_login/');
-if (!session_id()) {
-    session_start();
-}
-require_once(_dir_.'/facebook_login/vendor/autoload.php')
+use Facebook\Facebook;
 
-$fb = new facebook\facebool([
-'APP_ID'=>APP_ID,
-'APP_SECRET'=>APP_SECRET,
-    'default_graph_version'=>APP_VERSION,
+session_start();
+require "facebook_login/vendor/autoload.php";
+
+
+$fb = new \Facebook\Facebook([
+  'app_id' => '428383645405725',
+  'app_secret' => 'ce53d04857e9be189b49a0e772fdd3b8',
+  'default_graph_version' => 'v2.10',
 ]);
-$fb_helper = $fb->getRedirectLoginHelp();
-try{
-    if(isset($_SESSION['facebook_access_token']))
-    {$accessToken = $_SESSION['facebook_access_token']};
-    else {
-        $accessToken-$fb_helper->getAccessToken();
+
+$helper = $fb->getRedirectLoginHelper();
+$login_url = $helper->getLoginUrl("http://localhost/cat/facebook_login/dashboard.php");
+
+try {
+    
+    $accessToken = $helper->getAccessToken();
+
+    if(isset($accessToken)) {
+        $_SESSION['access_token'] = (string) $accessToken;
     }
-}
-catch(facebookResponseException $e){
-    echo 'facebook API Error'.$e->getMessage();
-    exit;
-}
-catch(facebookSDKException $e){
-    echo 'facebook sdk error:'. $e->getMessage();
-    exit;
-}
 
 
-
-?>
+} catch (Exception $e) {
+    print $e->getTraceAsString();
+}
