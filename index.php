@@ -18,11 +18,9 @@ require "config.php";
     <header class="text-white p-1 text-center"style="background-color:blue;">
 <h5>IREMBO|Practical CAT</h5>
 </header>
-
-
-<body>
   
-<header class="text-center py-1 fw-bold shadow-sm text-white" style="background-color: blue;">IREMBO | Practical CAT</header>
+<header class="text-center py-1 fw-bold shadow-sm text-white" style="background-color: blue;">
+</header>
     <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
         <div class="shadow-sm border p-5 text-center rounded">
             <h6 class="fw-bold">Connect to IREMBO</h6>
